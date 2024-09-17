@@ -1,0 +1,4 @@
+name: Hello
+
+on: 
+  workflow_dispatch
