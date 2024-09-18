@@ -69,11 +69,3 @@ variable "region" {
   type = string
   default = "us-east-1"
 }
-# variable "AWS_ACCESS_KEY_ID" {
-#   type = string
-#   default = "AKIA6GBMDF3TVJIWU5D6"
-# }
-# variable "AWS_SECRET_ACCESS_KEY" {
-#   type = string
-#   default = "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"
-# }
