@@ -256,7 +256,7 @@ resource "aws_volume_attachment" "ebs" {
 }
 
 resource "aws_ebs_volume" "volume" {
-  availability_zone = var.region
+  availability_zone = "us-east-1"
   size = 1
 }
 
