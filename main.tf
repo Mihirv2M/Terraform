@@ -250,7 +250,7 @@ resource "aws_lb_target_group_attachment" "instance_attachment" {
 }
 
 resource "aws_volume_attachment" "ebs" {
-  device_name = "my/volume"
+  device_name = "dev/sdf"
   volume_id = aws_ebs_volume.volume.id
   instance_id = aws_instance.my_instance.id
 }
