@@ -188,20 +188,20 @@ resource "aws_instance" "my_instance" {
   }
 }
 
-resource "aws_instance" "second_instance" {
-  ami                            = var.image_id
-  instance_type                  = var.instance_type
-  key_name                       = aws_key_pair.TF_key.key_name
-  subnet_id                      = aws_subnet.public_subnets[1].id  # Referencing the second
-  vpc_security_group_ids         = [aws_security_group.public_sg.id]
-  associate_public_ip_address    = true
-  depends_on                     = [aws_instance.my_instance]
-  user_data                      = var.user_data_demo
+#resource "aws_instance" "second_instance" {
+# ami                            = var.image_id
+#  instance_type                  = var.instance_type
+#  key_name                       = aws_key_pair.TF_key.key_name
+#  subnet_id                      = aws_subnet.public_subnets[1].id  # Referencing the second
+#  vpc_security_group_ids         = [aws_security_group.public_sg.id]
+#   associate_public_ip_address    = true
+#  depends_on                     = [aws_instance.my_instance]
+#  user_data                      = var.user_data_demo
 
-  tags = {
-    Name = "Terraform2"
-  }
-}
+#  tags = {
+#    Name = "Terraform2"
+#  }
+#}
 
 resource "aws_lb" "application_lb" {
   name = var.alb_name
@@ -247,4 +247,15 @@ resource "aws_lb_target_group_attachment" "instance_attachment" {
   target_group_arn = aws_lb_target_group.target-group.arn
   target_id = aws_instance.my_instance.id
   port = 80
+}
+
+resource "aws_volume_attachment" "ebs" {
+  device_name = "my/volume"
+  volume_id = aws_ebs_volume.volume.id
+  instance_id = aws_instance.my_instance.id
+}
+
+resource "aws_ebs_volume" "volume" {
+  availability_zone = var.region
+  size = 1
 }
