@@ -188,6 +188,21 @@ resource "aws_instance" "my_instance" {
   }
 }
 
+resource "aws_instance" "second_instance" {
+  ami                            = var.image_id
+  instance_type                  = var.instance_type
+  key_name                       = aws_key_pair.TF_key.key_name
+  subnet_id                      = aws_subnet.public_subnets[1].id  # Referencing the second
+  vpc_security_group_ids         = [aws_security_group.public_sg.id]
+  associate_public_ip_address    = true
+  depends_on                     = [aws_instance.my_instance]
+  user_data                      = var.user_data_demo
+
+  tags = {
+    Name = "Terraform2"
+  }
+}
+
 resource "aws_lb" "application_lb" {
   name = var.alb_name
   internal = false
