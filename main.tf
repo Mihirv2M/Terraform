@@ -259,3 +259,10 @@ resource "aws_ebs_volume" "volume" {
   availability_zone = var.region
   size = 1
 }
+
+resource "aws_ebs_snapshot" "backup" {
+  volume_id = aws_ebs_volume.volume.id
+  tags = {
+    Name = "my-snapshot"
+  }
+}
